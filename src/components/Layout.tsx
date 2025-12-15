@@ -1,5 +1,6 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
