@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import type { ReactNode } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,7 +10,9 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const userEmail = localStorage.getItem("userEmail") || "employee@packglamour.com";
+  const { currentUser, logout } = useAuth();
+  const userEmail = currentUser?.email || "employee@packglamour.com";
+  const displayName = currentUser?.displayName || userEmail.split("@")[0];
 
   useEffect(() => {
     // Initialize KTComponents after component mounts
@@ -31,10 +34,13 @@ function Layout({ children }: LayoutProps) {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("userEmail");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Failed to log out:", error);
+    }
   };
 
   const isActive = (path: string) => location.pathname === path;
@@ -165,7 +171,7 @@ function Layout({ children }: LayoutProps) {
                 </span>
                 <span className="d-flex flex-column">
                   <span className="text-gray-800 fs-7 fw-bold parent-hover-primary">
-                    {userEmail.split("@")[0]}
+                    {displayName}
                   </span>
                   <span className="text-gray-500 fs-8 fw-semibold">
                     Employee

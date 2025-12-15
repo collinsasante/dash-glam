@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -8,40 +9,60 @@ function SignUp() {
     email: '',
     password: '',
     confirmPassword: ''
-  })
-  const [acceptTerms, setAcceptTerms] = useState(false)
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+  });
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { signup } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match')
-      return
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
     }
 
     if (!acceptTerms) {
-      setError('Please accept the Terms & Conditions')
-      return
+      setError('Please accept the Terms & Conditions');
+      return;
     }
 
-    if (formData.email && formData.password && formData.firstName && formData.lastName) {
-      // Store user data
-      localStorage.setItem('isAuthenticated', 'true')
-      localStorage.setItem('userEmail', formData.email)
-      localStorage.setItem('userName', `${formData.firstName} ${formData.lastName}`)
-      navigate('/dashboard')
+    setLoading(true);
+
+    try {
+      const displayName = `${formData.firstName} ${formData.lastName}`;
+      await signup(formData.email, formData.password, displayName);
+      navigate('/dashboard');
+    } catch (err: any) {
+      // Handle Firebase errors
+      if (err.code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Invalid email address');
+      } else if (err.code === 'auth/weak-password') {
+        setError('Password is too weak. Please choose a stronger password');
+      } else {
+        setError('Failed to create account. Please try again');
+      }
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   return (
     <div className="d-flex flex-column flex-root" id="kt_app_root">
@@ -100,9 +121,10 @@ function SignUp() {
                       className="form-control form-control-lg form-control-solid"
                       type="text"
                       name="firstName"
-                      autoComplete="off"
+                      autoComplete="given-name"
                       value={formData.firstName}
                       onChange={handleChange}
+                      disabled={loading}
                       required
                     />
                   </div>
@@ -112,9 +134,10 @@ function SignUp() {
                       className="form-control form-control-lg form-control-solid"
                       type="text"
                       name="lastName"
-                      autoComplete="off"
+                      autoComplete="family-name"
                       value={formData.lastName}
                       onChange={handleChange}
+                      disabled={loading}
                       required
                     />
                   </div>
@@ -127,9 +150,10 @@ function SignUp() {
                     className="form-control form-control-lg form-control-solid"
                     type="email"
                     name="email"
-                    autoComplete="off"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
+                    disabled={loading}
                     required
                   />
                 </div>
@@ -141,11 +165,15 @@ function SignUp() {
                     className="form-control form-control-lg form-control-solid"
                     type="password"
                     name="password"
-                    autoComplete="off"
+                    autoComplete="new-password"
                     value={formData.password}
                     onChange={handleChange}
+                    disabled={loading}
                     required
                   />
+                  <div className="text-muted fs-7 mt-2">
+                    Use 6 or more characters with a mix of letters and numbers
+                  </div>
                 </div>
 
                 {/* Confirm Password Input */}
@@ -155,9 +183,10 @@ function SignUp() {
                     className="form-control form-control-lg form-control-solid"
                     type="password"
                     name="confirmPassword"
-                    autoComplete="off"
+                    autoComplete="new-password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    disabled={loading}
                     required
                   />
                 </div>
@@ -170,10 +199,11 @@ function SignUp() {
                       type="checkbox"
                       checked={acceptTerms}
                       onChange={(e) => setAcceptTerms(e.target.checked)}
+                      disabled={loading}
                     />
                     <span className="form-check-label fw-semibold text-gray-700 fs-6">
                       I agree to the{' '}
-                      <a href="#" className="link-primary">
+                      <a href="https://www.packglamour.com/" target="_blank" rel="noopener noreferrer" className="link-primary">
                         Terms & Conditions
                       </a>
                     </span>
@@ -182,8 +212,19 @@ function SignUp() {
 
                 {/* Submit Button */}
                 <div className="text-center">
-                  <button type="submit" className="btn btn-lg btn-primary w-100 mb-5">
-                    <span className="indicator-label">Create Account</span>
+                  <button
+                    type="submit"
+                    className="btn btn-lg btn-primary w-100 mb-5"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <span className="indicator-progress d-block">
+                        Please wait...
+                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      </span>
+                    ) : (
+                      <span className="indicator-label">Create Account</span>
+                    )}
                   </button>
                 </div>
               </form>
@@ -203,7 +244,7 @@ function SignUp() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

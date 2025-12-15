@@ -1,16 +1,35 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 function ForgotPassword() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { resetPassword } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email) {
-      setSubmitted(true)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      await resetPassword(email);
+      setSubmitted(true);
+    } catch (err: any) {
+      // Handle Firebase errors
+      if (err.code === 'auth/user-not-found') {
+        setError('No account found with this email address');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Invalid email address');
+      } else {
+        setError('Failed to send reset email. Please try again');
+      }
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="d-flex flex-column flex-root" id="kt_app_root">
@@ -45,6 +64,20 @@ function ForgotPassword() {
                     </div>
                   </div>
 
+                  {/* Error Message */}
+                  {error && (
+                    <div className="alert alert-danger d-flex align-items-center mb-10">
+                      <i className="ki-duotone ki-information-5 fs-2hx text-danger me-4">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                        <span className="path3"></span>
+                      </i>
+                      <div className="d-flex flex-column">
+                        <span>{error}</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Email Input */}
                   <div className="fv-row mb-10">
                     <label className="form-label fs-6 fw-bold text-gray-900">Email</label>
@@ -52,17 +85,29 @@ function ForgotPassword() {
                       className="form-control form-control-lg form-control-solid"
                       type="email"
                       name="email"
-                      autoComplete="off"
+                      autoComplete="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      disabled={loading}
                       required
                     />
                   </div>
 
                   {/* Actions */}
                   <div className="d-flex flex-wrap justify-content-center pb-lg-0">
-                    <button type="submit" className="btn btn-lg btn-primary fw-bold me-4">
-                      <span className="indicator-label">Submit</span>
+                    <button
+                      type="submit"
+                      className="btn btn-lg btn-primary fw-bold me-4"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <span className="indicator-progress d-block">
+                          Please wait...
+                          <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                      ) : (
+                        <span className="indicator-label">Submit</span>
+                      )}
                     </button>
                     <Link to="/login" className="btn btn-lg btn-light-primary fw-bold">
                       Cancel
@@ -116,7 +161,7 @@ function ForgotPassword() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ForgotPassword
+export default ForgotPassword;
