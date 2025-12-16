@@ -44,9 +44,10 @@ function VerifyEmail() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
-      <div className="d-flex flex-center w-100 p-5" style={{ minHeight: "100vh" }}>
-        <div className="card shadow-lg" style={{ maxWidth: "550px", width: "100%", borderRadius: "20px", border: "none" }}>
+    <div className="d-flex flex-column" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
+      <div className="d-flex flex-column flex-center flex-lg-row-fluid">
+        <div className="w-lg-550px p-10 mx-auto">
+          <div className="card shadow-lg" style={{ borderRadius: "20px", border: "none" }}>
           <div className="card-body p-10 p-lg-12">
             {/* Logo and Brand */}
             <div className="text-center mb-10">
@@ -202,6 +203,7 @@ function VerifyEmail() {
               <span className="mx-2">•</span>
               <span className="text-gray-600">Contact your administrator</span>
             </div>
+          </div>
           </div>
         </div>
       </div>

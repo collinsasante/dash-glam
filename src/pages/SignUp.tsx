@@ -67,9 +67,10 @@ function SignUp() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
-      <div className="d-flex flex-center w-100 p-5 py-10" style={{ minHeight: "100vh" }}>
-        <div className="card shadow-lg" style={{ maxWidth: "600px", width: "100%", borderRadius: "20px", border: "none" }}>
+    <div className="d-flex flex-column" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
+      <div className="d-flex flex-column flex-center flex-lg-row-fluid">
+        <div className="w-lg-600px p-10 mx-auto">
+          <div className="card shadow-lg" style={{ borderRadius: "20px", border: "none" }}>
           <div className="card-body p-8 p-lg-10">
             {/* Logo and Brand */}
             <div className="text-center mb-8">
@@ -341,6 +342,7 @@ function SignUp() {
             <div className="text-gray-600 fw-semibold fs-8">
               By creating an account, you agree to our terms and conditions
             </div>
+          </div>
           </div>
         </div>
       </div>
