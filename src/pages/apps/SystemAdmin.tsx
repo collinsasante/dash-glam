@@ -13,6 +13,7 @@ function SystemAdmin() {
 
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
   const loadData = async () => {
@@ -33,6 +34,7 @@ function SystemAdmin() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleUpdateEmployeeStatus = async (recordId: string, newStatus: string) => {
     try {
       await airtableService.updateEmployee(recordId, { Status: newStatus });

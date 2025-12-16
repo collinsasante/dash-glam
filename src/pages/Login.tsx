@@ -1,35 +1,35 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err: any) {
       // Handle Firebase errors
-      if (err.code === 'auth/invalid-credential') {
-        setError('Invalid email or password');
-      } else if (err.code === 'auth/user-not-found') {
-        setError('No account found with this email');
-      } else if (err.code === 'auth/wrong-password') {
-        setError('Incorrect password');
-      } else if (err.code === 'auth/too-many-requests') {
-        setError('Too many failed attempts. Please try again later');
+      if (err.code === "auth/invalid-credential") {
+        setError("Invalid email or password");
+      } else if (err.code === "auth/user-not-found") {
+        setError("No account found with this email");
+      } else if (err.code === "auth/wrong-password") {
+        setError("Incorrect password");
+      } else if (err.code === "auth/too-many-requests") {
+        setError("Too many failed attempts. Please try again later");
       } else {
-        setError('Failed to sign in. Please try again');
+        setError("Failed to sign in. Please try again");
       }
     } finally {
       setLoading(false);
@@ -37,10 +37,20 @@ function Login() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
-      <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
+    <div
+      className="d-flex flex-column flex-root"
+      id="kt_app_root"
+      style={{ minHeight: "100vh" }}
+    >
+      <div
+        className="d-flex flex-column flex-lg-row flex-column-fluid"
+        style={{ minHeight: "100vh" }}
+      >
         {/* Aside */}
-        <div className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style={{ backgroundColor: '#dc3545' }}>
+        <div
+          className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative"
+          style={{ backgroundColor: "#dc3545" }}
+        >
           <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
             {/* Header */}
             <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
@@ -51,7 +61,7 @@ function Login() {
                   src="/src/assets/logo_white.png"
                   className="h-40px h-lg-50px"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.style.display = "none";
                   }}
                 />
               </a>
@@ -63,7 +73,8 @@ function Login() {
 
               {/* Description */}
               <p className="d-none d-lg-block fw-semibold fs-2 text-white">
-                Plan your projects by managing orders, tracking<br />
+                Plan your projects by managing orders, tracking
+                <br />
                 deliveries and submitting daily reports
               </p>
             </div>
@@ -77,12 +88,9 @@ function Login() {
               <form className="form w-100" onSubmit={handleSubmit}>
                 {/* Heading */}
                 <div className="text-center mb-10">
-                  <h1 className="text-gray-900 mb-3">
-                    Sign In to Packaging Glamour
-                  </h1>
+                  <h1 className="text-gray-900 mb-3">Sign In</h1>
                   <div className="text-gray-500 fw-semibold fs-4">
-                    New Here?
-                    {' '}
+                    New Here?{" "}
                     <Link to="/signup" className="link-primary fw-bold">
                       Create an Account
                     </Link>
@@ -105,7 +113,9 @@ function Login() {
 
                 {/* Email Input */}
                 <div className="fv-row mb-10">
-                  <label className="form-label fs-6 fw-bold text-gray-900">Email</label>
+                  <label className="form-label fs-6 fw-bold text-gray-900">
+                    Email
+                  </label>
                   <input
                     className="form-control form-control-lg form-control-solid"
                     type="email"
@@ -121,8 +131,13 @@ function Login() {
                 {/* Password Input */}
                 <div className="fv-row mb-10">
                   <div className="d-flex flex-stack mb-2">
-                    <label className="form-label fw-bold text-gray-900 fs-6 mb-0">Password</label>
-                    <Link to="/forgot-password" className="link-primary fs-6 fw-bold">
+                    <label className="form-label fw-bold text-gray-900 fs-6 mb-0">
+                      Password
+                    </label>
+                    <Link
+                      to="/forgot-password"
+                      className="link-primary fs-6 fw-bold"
+                    >
                       Forgot Password ?
                     </Link>
                   </div>
@@ -162,9 +177,30 @@ function Login() {
           {/* Footer */}
           <div className="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
             <div className="d-flex flex-center fw-semibold fs-6">
-              <a href="https://www.packglamour.com/" className="text-muted text-hover-primary px-2" target="_blank" rel="noopener noreferrer">About</a>
-              <a href="https://www.packglamour.com/" className="text-muted text-hover-primary px-2" target="_blank" rel="noopener noreferrer">Support</a>
-              <a href="https://www.packglamour.com/" className="text-muted text-hover-primary px-2" target="_blank" rel="noopener noreferrer">Purchase</a>
+              <a
+                href="https://www.packglamour.com/"
+                className="text-muted text-hover-primary px-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                About
+              </a>
+              <a
+                href="https://www.packglamour.com/"
+                className="text-muted text-hover-primary px-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Support
+              </a>
+              <a
+                href="https://www.packglamour.com/"
+                className="text-muted text-hover-primary px-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Purchase
+              </a>
             </div>
           </div>
         </div>
