@@ -9,13 +9,21 @@ import {
   sendPasswordResetEmail,
   updateProfile
 } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../config/firebase';
+
+interface UserData {
+  department: string;
+  displayName: string;
+  email: string;
+}
 
 interface AuthContextType {
   currentUser: User | null;
+  userData: UserData | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string, displayName: string) => Promise<void>;
+  signup: (email: string, password: string, displayName: string, department: string) => Promise<void>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
 }
@@ -36,15 +44,24 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  async function signup(email: string, password: string, displayName: string) {
+  async function signup(email: string, password: string, displayName: string, department: string) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
     // Update user profile with display name
     if (userCredential.user) {
       await updateProfile(userCredential.user, {
         displayName: displayName
+      });
+
+      // Store user data in Firestore
+      await setDoc(doc(db, 'users', userCredential.user.uid), {
+        displayName,
+        email,
+        department,
+        createdAt: new Date().toISOString()
       });
     }
   }
@@ -55,6 +72,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function logout() {
     await signOut(auth);
+    setUserData(null);
   }
 
   async function resetPassword(email: string) {
@@ -62,8 +80,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
+
+      if (user) {
+        // Fetch user data from Firestore
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          setUserData(userDoc.data() as UserData);
+        }
+      } else {
+        setUserData(null);
+      }
+
       setLoading(false);
     });
 
@@ -72,6 +101,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const value: AuthContextType = {
     currentUser,
+    userData,
     loading,
     login,
     signup,

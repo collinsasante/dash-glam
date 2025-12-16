@@ -40,7 +40,7 @@ function Login() {
     <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
       <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
         {/* Aside */}
-        <div className="d-flex flex-column flex-lg-row-auto bg-primary w-xl-600px positon-xl-relative">
+        <div className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style={{ backgroundColor: '#dc3545' }}>
           <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
             {/* Header */}
             <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">

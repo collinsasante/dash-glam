@@ -10,9 +10,10 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { currentUser, logout } = useAuth();
+  const { currentUser, userData, logout } = useAuth();
   const userEmail = currentUser?.email || "employee@packglamour.com";
   const displayName = currentUser?.displayName || userEmail.split("@")[0];
+  const department = userData?.department || "Employee";
 
   useEffect(() => {
     // Initialize KTComponents after component mounts
@@ -174,7 +175,7 @@ function Layout({ children }: LayoutProps) {
                     {displayName}
                   </span>
                   <span className="text-gray-500 fs-8 fw-semibold">
-                    Employee
+                    {department}
                   </span>
                 </span>
               </Link>

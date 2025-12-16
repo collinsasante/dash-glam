@@ -8,7 +8,8 @@ function SignUp() {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    department: ''
   });
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [error, setError] = useState('');
@@ -39,7 +40,7 @@ function SignUp() {
 
     try {
       const displayName = `${formData.firstName} ${formData.lastName}`;
-      await signup(formData.email, formData.password, displayName);
+      await signup(formData.email, formData.password, displayName, formData.department);
       navigate('/dashboard');
     } catch (err: any) {
       // Handle Firebase errors
@@ -57,7 +58,7 @@ function SignUp() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -68,7 +69,7 @@ function SignUp() {
     <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
       <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
         {/* Aside */}
-        <div className="d-flex flex-column flex-lg-row-auto bg-primary w-xl-600px positon-xl-relative">
+        <div className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative" style={{ backgroundColor: '#dc3545' }}>
           <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
             {/* Header */}
             <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
@@ -189,6 +190,29 @@ function SignUp() {
                     disabled={loading}
                     required
                   />
+                </div>
+
+                {/* Department Input */}
+                <div className="fv-row mb-7">
+                  <label className="form-label fw-bold text-gray-900 fs-6">Department</label>
+                  <select
+                    className="form-select form-select-lg form-select-solid"
+                    name="department"
+                    value={formData.department}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  >
+                    <option value="">Select Department</option>
+                    <option value="Production">Production</option>
+                    <option value="Warehouse">Warehouse</option>
+                    <option value="Logistics">Logistics</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Finance">Finance</option>
+                    <option value="HR">HR</option>
+                    <option value="IT">IT</option>
+                    <option value="Management">Management</option>
+                  </select>
                 </div>
 
                 {/* Terms & Conditions */}
