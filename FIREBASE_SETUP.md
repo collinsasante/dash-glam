@@ -29,9 +29,10 @@ This guide will help you set up Firebase Authentication for the Packaging Glamou
      apiKey: "YOUR_API_KEY",
      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
      projectId: "YOUR_PROJECT_ID",
-     storageBucket: "YOUR_PROJECT_ID.appspot.com",
+     storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
      messagingSenderId: "YOUR_SENDER_ID",
-     appId: "YOUR_APP_ID"
+     appId: "YOUR_APP_ID",
+     measurementId: "YOUR_MEASUREMENT_ID"
    };
    ```
 6. Click **Continue to console**
@@ -60,9 +61,10 @@ This guide will help you set up Firebase Authentication for the Packaging Glamou
    VITE_FIREBASE_API_KEY=your_actual_api_key
    VITE_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
    VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
+   VITE_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
    VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
    VITE_FIREBASE_APP_ID=your_app_id
+   VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
    ```
 
 3. Save the file
@@ -73,12 +75,13 @@ This guide will help you set up Firebase Authentication for the Packaging Glamou
 2. Select your project (dash-glam)
 3. Click on **Settings** → **Environment variables**
 4. Add the following variables for **Production** (and Preview if needed):
-   - `VITE_FIREBASE_API_KEY`
-   - `VITE_FIREBASE_AUTH_DOMAIN`
-   - `VITE_FIREBASE_PROJECT_ID`
-   - `VITE_FIREBASE_STORAGE_BUCKET`
-   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
-   - `VITE_FIREBASE_APP_ID`
+   - `VITE_FIREBASE_API_KEY` = `AIzaSyAgeAeFQzlbw3uDzfIHiSsEnwNC_DLgQPw`
+   - `VITE_FIREBASE_AUTH_DOMAIN` = `packaging-glamour-portal.firebaseapp.com`
+   - `VITE_FIREBASE_PROJECT_ID` = `packaging-glamour-portal`
+   - `VITE_FIREBASE_STORAGE_BUCKET` = `packaging-glamour-portal.firebasestorage.app`
+   - `VITE_FIREBASE_MESSAGING_SENDER_ID` = `132098094476`
+   - `VITE_FIREBASE_APP_ID` = `1:132098094476:web:09a595d60a714db57392a9`
+   - `VITE_FIREBASE_MEASUREMENT_ID` = `G-V11CX5MDM5`
 
 5. Click **Save** for each variable
 
