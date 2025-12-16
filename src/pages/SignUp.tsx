@@ -65,8 +65,8 @@ function SignUp() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" id="kt_app_root">
-      <div className="d-flex flex-column flex-lg-row flex-column-fluid">
+    <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
+      <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
         {/* Aside */}
         <div className="d-flex flex-column flex-lg-row-auto bg-primary w-xl-600px positon-xl-relative">
           <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
