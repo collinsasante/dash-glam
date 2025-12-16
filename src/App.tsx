@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './assets/css/style.bundle.css'
 import './assets/plugins/global/plugins.bundle.css'
+import './assets/css/custom.css'
 
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import DepartmentRoute from './components/DepartmentRoute'

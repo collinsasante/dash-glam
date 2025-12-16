@@ -1,0 +1,163 @@
+/* Custom theme overrides for Packaging Glamour */
+
+/* Primary color override - Vermilion Red */
+:root {
+  --bs-primary: #dc3545;
+  --bs-primary-rgb: 220, 53, 69;
+  --bs-primary-light: #f8d7da;
+  --bs-primary-active: #b02a37;
+}
+
+/* Update all primary color usages */
+.btn-primary {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #b02a37 !important;
+  border-color: #b02a37 !important;
+}
+
+.btn-light-primary {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
+}
+
+.btn-light-primary:hover,
+.btn-light-primary:focus,
+.btn-light-primary:active {
+  background-color: rgba(220, 53, 69, 0.2) !important;
+  color: #b02a37 !important;
+}
+
+.text-primary {
+  color: #dc3545 !important;
+}
+
+.bg-primary {
+  background-color: #dc3545 !important;
+}
+
+.bg-light-primary {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+.border-primary {
+  border-color: #dc3545 !important;
+}
+
+.badge-light-primary {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
+}
+
+.symbol-label.bg-light-primary {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* Card hover effects with primary color */
+.card:hover,
+.hover-elevate-up:hover {
+  box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(220, 53, 69, 0.075) !important;
+}
+
+/* Menu active state */
+.menu-link.active {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
+}
+
+/* Fix flexbox display issues */
+.d-flex {
+  display: flex !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-row {
+  flex-direction: row !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.flex-grow-1 {
+  flex-grow: 1 !important;
+}
+
+/* Alert primary */
+.alert-primary {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
+  border-color: rgba(220, 53, 69, 0.2) !important;
+}
+
+/* Form controls focus state */
+.form-control:focus,
+.form-select:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Links */
+.text-hover-primary:hover {
+  color: #dc3545 !important;
+}
+
+a.text-primary:hover {
+  color: #b02a37 !important;
+}
+
+/* Spinner border primary */
+.spinner-border-primary {
+  border-color: #dc3545 !important;
+  border-right-color: transparent !important;
+}
+
+/* Progress bar */
+.progress-bar-primary {
+  background-color: #dc3545 !important;
+}
+
+/* Tab active state */
+.nav-pills .nav-link.active {
+  background-color: #dc3545 !important;
+}
+
+/* Icon colors */
+.svg-icon-primary,
+.ki-primary {
+  color: #dc3545 !important;
+}
+
+/* Ensure proper display for all flex containers */
+[class*="d-flex"] {
+  display: flex !important;
+}
+
+/* Parent hover states */
+.parent-hover-primary:hover {
+  color: #dc3545 !important;
+}
