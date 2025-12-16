@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { airtableService, type AirtableRecord } from '../../services/airtable';
-import { useAuth } from '../../contexts/AuthContext';
 
 function SystemAdmin() {
   const [activeTab, setActiveTab] = useState<'users' | 'permissions' | 'logs'>('users');
@@ -9,7 +8,6 @@ function SystemAdmin() {
   const [auditLogs, setAuditLogs] = useState<AirtableRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { currentUser } = useAuth();
 
   useEffect(() => {
     loadData();
@@ -31,26 +29,6 @@ function SystemAdmin() {
       setError(err.message || 'Failed to load data. Please check Airtable configuration.');
     } finally {
       setLoading(false);
-    }
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleUpdateEmployeeStatus = async (recordId: string, newStatus: string) => {
-    try {
-      await airtableService.updateEmployee(recordId, { Status: newStatus });
-
-      // Log the action
-      await airtableService.createAuditLog({
-        User: [currentUser?.uid],
-        Action: 'Update',
-        Module: 'Employee Management',
-        'Record ID': recordId,
-        Details: `Updated employee status to ${newStatus}`,
-      });
-
-      loadData();
-    } catch (err: any) {
-      setError(err.message || 'Failed to update employee status');
     }
   };
 
