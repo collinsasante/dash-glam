@@ -41,7 +41,8 @@ function SignUp() {
     try {
       const displayName = `${formData.firstName} ${formData.lastName}`;
       await signup(formData.email, formData.password, displayName, formData.department);
-      navigate('/dashboard');
+      // Redirect to email verification page
+      navigate('/verify-email');
     } catch (err: any) {
       // Handle Firebase errors
       if (err.code === 'auth/email-already-in-use') {

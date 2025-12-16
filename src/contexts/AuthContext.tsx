@@ -7,6 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  sendEmailVerification,
   updateProfile
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
@@ -26,6 +27,7 @@ interface AuthContextType {
   signup: (email: string, password: string, displayName: string, department: string) => Promise<void>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  resendVerificationEmail: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -56,11 +58,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         displayName: displayName
       });
 
+      // Send email verification
+      await sendEmailVerification(userCredential.user);
+
       // Store user data in Firestore
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         displayName,
         email,
         department,
+        emailVerified: false,
         createdAt: new Date().toISOString()
       });
     }
@@ -77,6 +83,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function resetPassword(email: string) {
     await sendPasswordResetEmail(auth, email);
+  }
+
+  async function resendVerificationEmail() {
+    if (currentUser && !currentUser.emailVerified) {
+      await sendEmailVerification(currentUser);
+    } else {
+      throw new Error('No user logged in or email already verified');
+    }
   }
 
   useEffect(() => {
@@ -106,7 +120,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     signup,
     logout,
-    resetPassword
+    resetPassword,
+    resendVerificationEmail
   };
 
   return (

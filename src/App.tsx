@@ -8,6 +8,7 @@ import DepartmentRoute from './components/DepartmentRoute'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ForgotPassword from './pages/ForgotPassword'
+import VerifyEmail from './pages/VerifyEmail'
 import Dashboard from './pages/Dashboard'
 import Apps from './pages/Apps'
 import Resources from './pages/Resources'
@@ -28,7 +29,17 @@ import Analytics from './pages/apps/Analytics'
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { currentUser } = useAuth()
-  return currentUser ? <>{children}</> : <Navigate to="/login" replace />
+
+  if (!currentUser) {
+    return <Navigate to="/login" replace />
+  }
+
+  // Redirect to email verification if email is not verified
+  if (!currentUser.emailVerified) {
+    return <Navigate to="/verify-email" replace />
+  }
+
+  return <>{children}</>
 }
 
 function App() {
@@ -39,6 +50,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route
             path="/dashboard"
             element={
