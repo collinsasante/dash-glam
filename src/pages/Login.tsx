@@ -7,6 +7,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -37,88 +38,62 @@ function Login() {
   };
 
   return (
-    <div
-      className="d-flex flex-column flex-root"
-      id="kt_app_root"
-      style={{ minHeight: "100vh" }}
-    >
-      <div
-        className="d-flex flex-column flex-lg-row flex-column-fluid"
-        style={{ minHeight: "100vh" }}
-      >
-        {/* Aside */}
-        <div
-          className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative"
-        >
-          <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y" style={{ backgroundColor: "#dc3545" }}>
-            {/* Header */}
-            <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
-              {/* Logo */}
-              <a href="/dashboard" className="py-2 py-lg-20">
-                <img
-                  alt="Logo"
-                  src="/src/assets/logo_white.png"
-                  className="h-40px h-lg-50px"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                />
-              </a>
-
-              {/* Title */}
-              <h1 className="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">
-                Welcome to Packaging Glamour
-              </h1>
-
-              {/* Description */}
-              <p className="d-none d-lg-block fw-semibold fs-2 text-white">
-                Plan your projects by managing orders, tracking
-                <br />
-                deliveries and submitting daily reports
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="d-flex flex-column flex-lg-row-fluid py-10">
-          <div className="d-flex flex-center flex-column flex-column-fluid">
-            <div className="w-lg-500px p-10 p-lg-15 mx-auto">
-              <form className="form w-100" onSubmit={handleSubmit}>
-                {/* Heading */}
-                <div className="text-center mb-10">
-                  <h1 className="text-gray-900 mb-3">Sign In</h1>
-                  <div className="text-gray-500 fw-semibold fs-4">
-                    New Here?{" "}
-                    <Link to="/signup" className="link-primary fw-bold">
-                      Create an Account
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Error Message */}
-                {error && (
-                  <div className="alert alert-danger d-flex align-items-center mb-10">
-                    <i className="ki-duotone ki-information-5 fs-2hx text-danger me-4">
+    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="d-flex flex-center w-100 h-100 p-5">
+        <div className="card shadow-lg" style={{ maxWidth: "500px", width: "100%", borderRadius: "20px", border: "none" }}>
+          <div className="card-body p-10 p-lg-12">
+            {/* Logo and Brand */}
+            <div className="text-center mb-10">
+              <div className="mb-7">
+                <div className="symbol symbol-100px mx-auto mb-5" style={{ background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)", borderRadius: "20px" }}>
+                  <span className="symbol-label">
+                    <i className="ki-duotone ki-package fs-3x text-white">
                       <span className="path1"></span>
                       <span className="path2"></span>
                       <span className="path3"></span>
                     </i>
-                    <div className="d-flex flex-column">
-                      <span>{error}</span>
-                    </div>
-                  </div>
-                )}
+                  </span>
+                </div>
+                <h1 className="text-gray-900 fw-bolder mb-3" style={{ fontSize: "2rem" }}>
+                  Packaging Glamour
+                </h1>
+                <p className="text-gray-600 fw-semibold fs-5">
+                  Sign in to your account
+                </p>
+              </div>
+            </div>
 
-                {/* Email Input */}
-                <div className="fv-row mb-10">
-                  <label className="form-label fs-6 fw-bold text-gray-900">
-                    Email
-                  </label>
+            {/* Error Message */}
+            {error && (
+              <div className="alert alert-danger d-flex align-items-center mb-8" style={{ borderRadius: "12px", border: "none", background: "#fee" }}>
+                <i className="ki-duotone ki-shield-cross fs-2hx text-danger me-3">
+                  <span className="path1"></span>
+                  <span className="path2"></span>
+                </i>
+                <span className="fw-semibold">{error}</span>
+              </div>
+            )}
+
+            {/* Login Form */}
+            <form onSubmit={handleSubmit}>
+              {/* Email Input */}
+              <div className="mb-8">
+                <label className="form-label text-gray-900 fw-bold fs-6 mb-3">
+                  Email Address
+                </label>
+                <div className="position-relative">
+                  <span className="position-absolute top-50 translate-middle-y ms-4">
+                    <i className="ki-duotone ki-sms fs-2 text-gray-500">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                    </i>
+                  </span>
                   <input
-                    className="form-control form-control-lg form-control-solid"
+                    className="form-control form-control-lg ps-14"
+                    style={{ borderRadius: "12px", border: "2px solid #e4e6ef", height: "55px" }}
                     type="email"
                     name="email"
+                    placeholder="Enter your email"
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -126,79 +101,112 @@ function Login() {
                     required
                   />
                 </div>
+              </div>
 
-                {/* Password Input */}
-                <div className="fv-row mb-10">
-                  <div className="d-flex flex-stack mb-2">
-                    <label className="form-label fw-bold text-gray-900 fs-6 mb-0">
-                      Password
-                    </label>
-                    <Link
-                      to="/forgot-password"
-                      className="link-primary fs-6 fw-bold"
-                    >
-                      Forgot Password ?
-                    </Link>
-                  </div>
+              {/* Password Input */}
+              <div className="mb-8">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <label className="form-label text-gray-900 fw-bold fs-6 mb-0">
+                    Password
+                  </label>
+                  <Link
+                    to="/forgot-password"
+                    className="link-primary fw-bold fs-7"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+                <div className="position-relative">
+                  <span className="position-absolute top-50 translate-middle-y ms-4">
+                    <i className="ki-duotone ki-lock fs-2 text-gray-500">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                    </i>
+                  </span>
                   <input
-                    className="form-control form-control-lg form-control-solid"
-                    type="password"
+                    className="form-control form-control-lg ps-14 pe-14"
+                    style={{ borderRadius: "12px", border: "2px solid #e4e6ef", height: "55px" }}
+                    type={showPassword ? "text" : "password"}
                     name="password"
+                    placeholder="Enter your password"
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={loading}
                     required
                   />
-                </div>
-
-                {/* Submit Button */}
-                <div className="text-center">
                   <button
-                    type="submit"
-                    className="btn btn-lg btn-primary w-100 mb-5"
-                    disabled={loading}
+                    type="button"
+                    className="btn btn-sm btn-icon position-absolute top-50 end-0 translate-middle-y me-3"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{ background: "transparent", border: "none" }}
                   >
-                    {loading ? (
-                      <span className="indicator-progress d-block">
-                        Please wait...
-                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                      </span>
-                    ) : (
-                      <span className="indicator-label">Continue</span>
-                    )}
+                    <i className={`ki-duotone ${showPassword ? 'ki-eye-slash' : 'ki-eye'} fs-2 text-gray-500`}>
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                      <span className="path3"></span>
+                    </i>
                   </button>
                 </div>
-              </form>
-            </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="mb-8">
+                <button
+                  type="submit"
+                  className="btn btn-lg w-100 text-white fw-bold"
+                  style={{
+                    background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)",
+                    borderRadius: "12px",
+                    height: "55px",
+                    border: "none",
+                    boxShadow: "0 4px 15px rgba(220, 53, 69, 0.3)"
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <span className="d-flex align-items-center justify-content-center">
+                      <span className="spinner-border spinner-border-sm me-2"></span>
+                      Signing in...
+                    </span>
+                  ) : (
+                    <span className="d-flex align-items-center justify-content-center">
+                      <i className="ki-duotone ki-arrow-right fs-2 me-2">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
+                      Sign In
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* Sign Up Link */}
+              <div className="text-center">
+                <span className="text-gray-600 fw-semibold fs-6">
+                  Don't have an account?{" "}
+                  <Link to="/signup" className="link-primary fw-bold" style={{ textDecoration: "none" }}>
+                    Create Account
+                  </Link>
+                </span>
+              </div>
+            </form>
           </div>
 
           {/* Footer */}
-          <div className="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
-            <div className="d-flex flex-center fw-semibold fs-6">
-              <a
-                href="https://www.packglamour.com/"
-                className="text-muted text-hover-primary px-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+          <div className="card-footer text-center py-5" style={{ borderTop: "1px solid #eff2f5", borderRadius: "0 0 20px 20px", background: "#f9f9f9" }}>
+            <div className="text-gray-600 fw-semibold fs-7">
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                 About
               </a>
-              <a
-                href="https://www.packglamour.com/"
-                className="text-muted text-hover-primary px-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <span className="mx-2">•</span>
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                 Support
               </a>
-              <a
-                href="https://www.packglamour.com/"
-                className="text-muted text-hover-primary px-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Purchase
+              <span className="mx-2">•</span>
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                Privacy
               </a>
             </div>
           </div>

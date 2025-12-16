@@ -18,7 +18,6 @@ function ForgotPassword() {
       await resetPassword(email);
       setSubmitted(true);
     } catch (err: any) {
-      // Handle Firebase errors
       if (err.code === 'auth/user-not-found') {
         setError('No account found with this email address');
       } else if (err.code === 'auth/invalid-email') {
@@ -32,130 +31,187 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
-      <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
-        {/* Aside */}
-        <div className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative">
-          <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y" style={{ backgroundColor: '#dc3545' }}>
-            {/* Header */}
-            <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
-              <h1 className="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">
-                Packaging Glamour
-              </h1>
-              <p className="d-none d-lg-block fw-semibold fs-2 text-white">
-                Recover your account access<br />
-                and get back to work
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="d-flex flex-column flex-lg-row-fluid py-10">
-          <div className="d-flex flex-center flex-column flex-column-fluid">
-            <div className="w-lg-500px p-10 p-lg-15 mx-auto">
-              {!submitted ? (
-                <form className="form w-100" onSubmit={handleSubmit}>
-                  {/* Heading */}
-                  <div className="text-center mb-10">
-                    <h1 className="text-gray-900 mb-3">Forgot Password?</h1>
-                    <div className="text-gray-500 fw-semibold fs-4">
-                      Enter your email to reset your password
-                    </div>
-                  </div>
-
-                  {/* Error Message */}
-                  {error && (
-                    <div className="alert alert-danger d-flex align-items-center mb-10">
-                      <i className="ki-duotone ki-information-5 fs-2hx text-danger me-4">
-                        <span className="path1"></span>
-                        <span className="path2"></span>
-                        <span className="path3"></span>
-                      </i>
-                      <div className="d-flex flex-column">
-                        <span>{error}</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Email Input */}
-                  <div className="fv-row mb-10">
-                    <label className="form-label fs-6 fw-bold text-gray-900">Email</label>
-                    <input
-                      className="form-control form-control-lg form-control-solid"
-                      type="email"
-                      name="email"
-                      autoComplete="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      disabled={loading}
-                      required
-                    />
-                  </div>
-
-                  {/* Actions */}
-                  <div className="d-flex flex-wrap justify-content-center pb-lg-0">
-                    <button
-                      type="submit"
-                      className="btn btn-lg btn-primary fw-bold me-4"
-                      disabled={loading}
-                    >
-                      {loading ? (
-                        <span className="indicator-progress d-block">
-                          Please wait...
-                          <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                        </span>
-                      ) : (
-                        <span className="indicator-label">Submit</span>
-                      )}
-                    </button>
-                    <Link to="/login" className="btn btn-lg btn-light-primary fw-bold">
-                      Cancel
-                    </Link>
-                  </div>
-                </form>
-              ) : (
-                <div className="text-center">
-                  {/* Success Message */}
-                  <div className="mb-10">
-                    <div className="symbol symbol-100px mx-auto mb-7">
-                      <span className="symbol-label bg-light-success">
-                        <i className="ki-duotone ki-check fs-3x text-success">
+    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="d-flex flex-center w-100 h-100 p-5">
+        <div className="card shadow-lg" style={{ maxWidth: "500px", width: "100%", borderRadius: "20px", border: "none" }}>
+          <div className="card-body p-10 p-lg-12">
+            {!submitted ? (
+              <>
+                {/* Logo and Brand */}
+                <div className="text-center mb-10">
+                  <div className="mb-7">
+                    <div className="symbol symbol-100px mx-auto mb-5" style={{ background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)", borderRadius: "20px" }}>
+                      <span className="symbol-label">
+                        <i className="ki-duotone ki-key fs-3x text-white">
                           <span className="path1"></span>
                           <span className="path2"></span>
                         </i>
                       </span>
                     </div>
-                    <h1 className="text-gray-900 mb-3">Password Reset Email Sent</h1>
-                    <div className="text-gray-500 fw-semibold fs-4 mb-10">
-                      We have sent a password reset link to<br />
-                      <strong>{email}</strong>
+                    <h1 className="text-gray-900 fw-bolder mb-3" style={{ fontSize: "2rem" }}>
+                      Forgot Password?
+                    </h1>
+                    <p className="text-gray-600 fw-semibold fs-5">
+                      No worries, we'll send you reset instructions
+                    </p>
+                  </div>
+                </div>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="alert alert-danger d-flex align-items-center mb-8" style={{ borderRadius: "12px", border: "none", background: "#fee" }}>
+                    <i className="ki-duotone ki-shield-cross fs-2hx text-danger me-3">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                    </i>
+                    <span className="fw-semibold">{error}</span>
+                  </div>
+                )}
+
+                {/* Reset Form */}
+                <form onSubmit={handleSubmit}>
+                  {/* Email Input */}
+                  <div className="mb-8">
+                    <label className="form-label text-gray-900 fw-bold fs-6 mb-3">
+                      Email Address
+                    </label>
+                    <div className="position-relative">
+                      <span className="position-absolute top-50 translate-middle-y ms-4">
+                        <i className="ki-duotone ki-sms fs-2 text-gray-500">
+                          <span className="path1"></span>
+                          <span className="path2"></span>
+                        </i>
+                      </span>
+                      <input
+                        className="form-control form-control-lg ps-14"
+                        style={{ borderRadius: "12px", border: "2px solid #e4e6ef", height: "55px" }}
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={loading}
+                        required
+                      />
                     </div>
-                    <div className="text-gray-500 fw-semibold fs-6 mb-10">
-                      Please check your email and follow the instructions to reset your password.
-                      If you don't see the email, check your spam folder.
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="mb-6">
+                    <button
+                      type="submit"
+                      className="btn btn-lg w-100 text-white fw-bold"
+                      style={{
+                        background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)",
+                        borderRadius: "12px",
+                        height: "55px",
+                        border: "none",
+                        boxShadow: "0 4px 15px rgba(220, 53, 69, 0.3)"
+                      }}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <span className="d-flex align-items-center justify-content-center">
+                          <span className="spinner-border spinner-border-sm me-2"></span>
+                          Sending...
+                        </span>
+                      ) : (
+                        <span className="d-flex align-items-center justify-content-center">
+                          <i className="ki-duotone ki-send fs-2 me-2">
+                            <span className="path1"></span>
+                            <span className="path2"></span>
+                          </i>
+                          Reset Password
+                        </span>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Back to Login */}
+                  <div className="text-center">
+                    <Link to="/login" className="btn btn-link text-gray-600 fw-semibold" style={{ textDecoration: "none" }}>
+                      <i className="ki-duotone ki-arrow-left fs-3 me-1">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
+                      Back to Sign In
+                    </Link>
+                  </div>
+                </form>
+              </>
+            ) : (
+              <>
+                {/* Success State */}
+                <div className="text-center">
+                  <div className="mb-10">
+                    <div className="symbol symbol-100px mx-auto mb-7" style={{ background: "linear-gradient(135deg, #10b981 0%, #34d399 100%)", borderRadius: "20px" }}>
+                      <span className="symbol-label">
+                        <i className="ki-duotone ki-check-circle fs-3x text-white">
+                          <span className="path1"></span>
+                          <span className="path2"></span>
+                        </i>
+                      </span>
                     </div>
+                    <h1 className="text-gray-900 fw-bolder mb-3" style={{ fontSize: "2rem" }}>
+                      Check Your Email
+                    </h1>
+                    <p className="text-gray-600 fw-semibold fs-5 mb-8">
+                      We've sent a password reset link to
+                    </p>
+                    <div className="alert alert-primary d-flex align-items-center mb-8" style={{ borderRadius: "12px", border: "none", background: "#eff6ff" }}>
+                      <i className="ki-duotone ki-sms fs-2x text-primary me-3">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
+                      <span className="fw-bold text-primary">{email}</span>
+                    </div>
+                    <p className="text-gray-500 fs-6 mb-10">
+                      Click the link in the email to reset your password.
+                      <br />
+                      If you don't see it, check your spam folder.
+                    </p>
                   </div>
 
                   {/* Return to Login */}
-                  <div className="mb-0">
-                    <Link to="/login" className="btn btn-lg btn-primary fw-bold">
-                      Return to Sign In
-                    </Link>
-                  </div>
+                  <Link
+                    to="/login"
+                    className="btn btn-lg w-100 text-white fw-bold"
+                    style={{
+                      background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)",
+                      borderRadius: "12px",
+                      height: "55px",
+                      border: "none",
+                      boxShadow: "0 4px 15px rgba(220, 53, 69, 0.3)"
+                    }}
+                  >
+                    <span className="d-flex align-items-center justify-content-center">
+                      <i className="ki-duotone ki-arrow-left fs-2 me-2">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
+                      Back to Sign In
+                    </span>
+                  </Link>
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
 
           {/* Footer */}
-          <div className="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
-            <div className="d-flex flex-center fw-semibold fs-6">
-              <a href="https://www.packglamour.com/" className="text-muted text-hover-primary px-2" target="_blank" rel="noopener noreferrer">
+          <div className="card-footer text-center py-5" style={{ borderTop: "1px solid #eff2f5", borderRadius: "0 0 20px 20px", background: "#f9f9f9" }}>
+            <div className="text-gray-600 fw-semibold fs-7">
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                 About
               </a>
-              <span className="text-muted px-2">|</span>
-              <span className="text-muted px-2">Need help? Contact your administrator</span>
+              <span className="mx-2">•</span>
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                Support
+              </a>
+              <span className="mx-2">•</span>
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                Privacy
+              </a>
             </div>
           </div>
         </div>

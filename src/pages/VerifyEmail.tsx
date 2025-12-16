@@ -10,7 +10,6 @@ function VerifyEmail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect if already verified
     if (currentUser?.emailVerified) {
       navigate('/dashboard');
     }
@@ -45,149 +44,163 @@ function VerifyEmail() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
-      <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
-        {/* Aside */}
-        <div className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative">
-          <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y" style={{ backgroundColor: '#dc3545' }}>
-            {/* Header */}
-            <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
-              <h1 className="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">
-                Packaging Glamour
-              </h1>
-              <p className="d-none d-lg-block fw-semibold fs-2 text-white">
-                Verify your email address<br />
-                to access your account
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="d-flex flex-column flex-lg-row-fluid py-10">
-          <div className="d-flex flex-center flex-column flex-column-fluid">
-            <div className="w-lg-500px p-10 p-lg-15 mx-auto">
-              <div className="text-center mb-10">
-                {/* Icon */}
-                <div className="symbol symbol-100px mx-auto mb-7">
-                  <span className="symbol-label bg-light-primary">
-                    <i className="ki-duotone ki-sms fs-3x text-primary">
+    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="d-flex flex-center w-100 h-100 p-5">
+        <div className="card shadow-lg" style={{ maxWidth: "550px", width: "100%", borderRadius: "20px", border: "none" }}>
+          <div className="card-body p-10 p-lg-12">
+            {/* Logo and Brand */}
+            <div className="text-center mb-10">
+              <div className="mb-7">
+                <div className="symbol symbol-100px mx-auto mb-5" style={{ background: "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)", borderRadius: "20px" }}>
+                  <span className="symbol-label">
+                    <i className="ki-duotone ki-shield-tick fs-3x text-white">
                       <span className="path1"></span>
                       <span className="path2"></span>
                     </i>
                   </span>
                 </div>
-
-                {/* Title */}
-                <h1 className="text-gray-900 mb-3">Verify Your Email</h1>
-                <div className="text-gray-500 fw-semibold fs-4 mb-5">
-                  We've sent a verification email to<br />
-                  <strong className="text-gray-900">{currentUser?.email}</strong>
+                <h1 className="text-gray-900 fw-bolder mb-3" style={{ fontSize: "2rem" }}>
+                  Verify Your Email
+                </h1>
+                <p className="text-gray-600 fw-semibold fs-5 mb-6">
+                  We've sent a verification link to
+                </p>
+                <div className="alert alert-primary d-flex align-items-center" style={{ borderRadius: "12px", border: "none", background: "#eff6ff" }}>
+                  <i className="ki-duotone ki-sms fs-2x text-primary me-3">
+                    <span className="path1"></span>
+                    <span className="path2"></span>
+                  </i>
+                  <span className="fw-bold text-primary">{currentUser?.email}</span>
                 </div>
               </div>
+            </div>
 
-              {/* Success Message */}
-              {message && (
-                <div className="alert alert-success d-flex align-items-center mb-10">
-                  <i className="ki-duotone ki-check-circle fs-2hx text-success me-4">
-                    <span className="path1"></span>
-                    <span className="path2"></span>
-                  </i>
-                  <div className="d-flex flex-column">
-                    <span>{message}</span>
+            {/* Success Message */}
+            {message && (
+              <div className="alert alert-success d-flex align-items-center mb-8" style={{ borderRadius: "12px", border: "none", background: "#f0fdf4" }}>
+                <i className="ki-duotone ki-check-circle fs-2hx text-success me-3">
+                  <span className="path1"></span>
+                  <span className="path2"></span>
+                </i>
+                <span className="fw-semibold text-success">{message}</span>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="alert alert-danger d-flex align-items-center mb-8" style={{ borderRadius: "12px", border: "none", background: "#fee" }}>
+                <i className="ki-duotone ki-shield-cross fs-2hx text-danger me-3">
+                  <span className="path1"></span>
+                  <span className="path2"></span>
+                </i>
+                <span className="fw-semibold">{error}</span>
+              </div>
+            )}
+
+            {/* Instructions */}
+            <div className="mb-10">
+              <div className="card" style={{ background: "#f9fafb", border: "2px dashed #e5e7eb", borderRadius: "12px" }}>
+                <div className="card-body p-6">
+                  <div className="d-flex align-items-start mb-4">
+                    <div className="me-4" style={{ width: "40px", height: "40px", background: "#dc3545", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span className="fw-bold text-white fs-5">1</span>
+                    </div>
+                    <div>
+                      <h5 className="text-gray-900 fw-bold mb-1">Check your email</h5>
+                      <p className="text-gray-600 fs-7 mb-0">Look for the verification email in your inbox (and spam folder)</p>
+                    </div>
                   </div>
-                </div>
-              )}
-
-              {/* Error Message */}
-              {error && (
-                <div className="alert alert-danger d-flex align-items-center mb-10">
-                  <i className="ki-duotone ki-information-5 fs-2hx text-danger me-4">
-                    <span className="path1"></span>
-                    <span className="path2"></span>
-                    <span className="path3"></span>
-                  </i>
-                  <div className="d-flex flex-column">
-                    <span>{error}</span>
+                  <div className="d-flex align-items-start mb-4">
+                    <div className="me-4" style={{ width: "40px", height: "40px", background: "#dc3545", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span className="fw-bold text-white fs-5">2</span>
+                    </div>
+                    <div>
+                      <h5 className="text-gray-900 fw-bold mb-1">Click the link</h5>
+                      <p className="text-gray-600 fs-7 mb-0">Click the verification link in the email we sent you</p>
+                    </div>
                   </div>
-                </div>
-              )}
-
-              {/* Instructions */}
-              <div className="mb-10">
-                <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
-                  <i className="ki-duotone ki-information-5 fs-2tx text-primary me-4">
-                    <span className="path1"></span>
-                    <span className="path2"></span>
-                    <span className="path3"></span>
-                  </i>
-                  <div className="d-flex flex-stack flex-grow-1">
-                    <div className="fw-semibold">
-                      <h4 className="text-gray-900 fw-bold mb-2">What's Next?</h4>
-                      <div className="fs-6 text-gray-700">
-                        <p className="mb-2">1. Check your email inbox (and spam folder)</p>
-                        <p className="mb-2">2. Click the verification link in the email</p>
-                        <p className="mb-0">3. Return here and click "I've Verified My Email"</p>
-                      </div>
+                  <div className="d-flex align-items-start">
+                    <div className="me-4" style={{ width: "40px", height: "40px", background: "#dc3545", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span className="fw-bold text-white fs-5">3</span>
+                    </div>
+                    <div>
+                      <h5 className="text-gray-900 fw-bold mb-1">Return here</h5>
+                      <p className="text-gray-600 fs-7 mb-0">Come back and click "I've Verified My Email" button below</p>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Actions */}
-              <div className="d-flex flex-wrap justify-content-center pb-lg-0 gap-3">
-                <button
-                  onClick={handleRefresh}
-                  className="btn btn-lg btn-primary fw-bold"
-                >
-                  <i className="ki-duotone ki-check fs-2 me-2">
+            {/* Action Buttons */}
+            <div className="mb-6">
+              <button
+                onClick={handleRefresh}
+                className="btn btn-lg w-100 text-white fw-bold mb-4"
+                style={{
+                  background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)",
+                  borderRadius: "12px",
+                  height: "55px",
+                  border: "none",
+                  boxShadow: "0 4px 15px rgba(220, 53, 69, 0.3)"
+                }}
+              >
+                <span className="d-flex align-items-center justify-content-center">
+                  <i className="ki-duotone ki-check-circle fs-2 me-2">
                     <span className="path1"></span>
                     <span className="path2"></span>
                   </i>
                   I've Verified My Email
-                </button>
-                <button
-                  onClick={handleResendEmail}
-                  className="btn btn-lg btn-light-primary fw-bold"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <span className="indicator-progress d-block">
-                      Sending...
-                      <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                    </span>
-                  ) : (
-                    <>
-                      <i className="ki-duotone ki-send fs-2 me-2">
-                        <span className="path1"></span>
-                        <span className="path2"></span>
-                      </i>
-                      Resend Email
-                    </>
-                  )}
-                </button>
-              </div>
+                </span>
+              </button>
 
-              {/* Logout Link */}
-              <div className="text-center mt-10">
-                <button
-                  onClick={handleLogout}
-                  className="btn btn-link text-gray-500 text-hover-primary"
-                >
-                  Sign out and use a different account
-                </button>
-              </div>
+              <button
+                onClick={handleResendEmail}
+                className="btn btn-lg w-100 btn-light-primary fw-bold"
+                style={{ borderRadius: "12px", height: "55px", border: "2px solid #dc3545" }}
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="d-flex align-items-center justify-content-center">
+                    <span className="spinner-border spinner-border-sm me-2"></span>
+                    Sending...
+                  </span>
+                ) : (
+                  <span className="d-flex align-items-center justify-content-center">
+                    <i className="ki-duotone ki-send fs-2 me-2">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                    </i>
+                    Resend Verification Email
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Logout Link */}
+            <div className="text-center">
+              <button
+                onClick={handleLogout}
+                className="btn btn-link text-gray-600 fw-semibold"
+                style={{ textDecoration: "none" }}
+              >
+                <i className="ki-duotone ki-exit-left fs-3 me-1">
+                  <span className="path1"></span>
+                  <span className="path2"></span>
+                </i>
+                Sign out and use a different account
+              </button>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
-            <div className="d-flex flex-center fw-semibold fs-6">
-              <a href="https://www.packglamour.com/" className="text-muted text-hover-primary px-2" target="_blank" rel="noopener noreferrer">
-                About
+          <div className="card-footer text-center py-5" style={{ borderTop: "1px solid #eff2f5", borderRadius: "0 0 20px 20px", background: "#f9f9f9" }}>
+            <div className="text-gray-600 fw-semibold fs-7">
+              <a href="https://www.packglamour.com/" className="text-gray-600 text-hover-primary mx-2" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                Need help?
               </a>
-              <span className="text-muted px-2">|</span>
-              <span className="text-muted px-2">Need help? Contact your administrator</span>
+              <span className="mx-2">•</span>
+              <span className="text-gray-600">Contact your administrator</span>
             </div>
           </div>
         </div>

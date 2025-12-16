@@ -14,6 +14,8 @@ function SignUp() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const { signup } = useAuth();
 
@@ -41,10 +43,8 @@ function SignUp() {
     try {
       const displayName = `${formData.firstName} ${formData.lastName}`;
       await signup(formData.email, formData.password, displayName, formData.department);
-      // Redirect to email verification page
       navigate('/verify-email');
     } catch (err: any) {
-      // Handle Firebase errors
       if (err.code === 'auth/email-already-in-use') {
         setError('An account with this email already exists');
       } else if (err.code === 'auth/invalid-email') {
@@ -67,91 +67,94 @@ function SignUp() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" id="kt_app_root" style={{ minHeight: '100vh' }}>
-      <div className="d-flex flex-column flex-lg-row flex-column-fluid" style={{ minHeight: '100vh' }}>
-        {/* Aside */}
-        <div className="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative">
-          <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y" style={{ backgroundColor: '#dc3545' }}>
-            {/* Header */}
-            <div className="d-flex flex-row-fluid flex-column text-center p-5 p-lg-10 pt-lg-20">
-              <h1 className="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">
-                Packaging Glamour
-              </h1>
-              <p className="d-none d-lg-block fw-semibold fs-2 text-white">
-                Join our team and access<br />
-                all company resources and applications
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="d-flex flex-column flex-lg-row-fluid py-10">
-          <div className="d-flex flex-center flex-column flex-column-fluid">
-            <div className="w-lg-600px p-10 p-lg-15 mx-auto">
-              <form className="form w-100" onSubmit={handleSubmit}>
-                {/* Heading */}
-                <div className="text-center mb-10">
-                  <h1 className="text-gray-900 mb-3">Create an Account</h1>
-                  <div className="text-gray-500 fw-semibold fs-4">
-                    Already have an account?{' '}
-                    <Link to="/login" className="link-primary fw-bold">
-                      Sign in here
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Error Message */}
-                {error && (
-                  <div className="alert alert-danger d-flex align-items-center mb-7">
-                    <i className="ki-duotone ki-information-5 fs-2hx text-danger me-4">
+    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="d-flex flex-center w-100 h-100 p-5 py-10">
+        <div className="card shadow-lg" style={{ maxWidth: "600px", width: "100%", borderRadius: "20px", border: "none" }}>
+          <div className="card-body p-8 p-lg-10">
+            {/* Logo and Brand */}
+            <div className="text-center mb-8">
+              <div className="mb-5">
+                <div className="symbol symbol-80px mx-auto mb-4" style={{ background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)", borderRadius: "16px" }}>
+                  <span className="symbol-label">
+                    <i className="ki-duotone ki-user-tick fs-2x text-white">
                       <span className="path1"></span>
                       <span className="path2"></span>
                       <span className="path3"></span>
                     </i>
-                    <div className="d-flex flex-column">
-                      <span>{error}</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Name Inputs */}
-                <div className="row fv-row mb-7">
-                  <div className="col-xl-6">
-                    <label className="form-label fw-bold text-gray-900 fs-6">First Name</label>
-                    <input
-                      className="form-control form-control-lg form-control-solid"
-                      type="text"
-                      name="firstName"
-                      autoComplete="given-name"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      disabled={loading}
-                      required
-                    />
-                  </div>
-                  <div className="col-xl-6">
-                    <label className="form-label fw-bold text-gray-900 fs-6">Last Name</label>
-                    <input
-                      className="form-control form-control-lg form-control-solid"
-                      type="text"
-                      name="lastName"
-                      autoComplete="family-name"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      disabled={loading}
-                      required
-                    />
-                  </div>
+                  </span>
                 </div>
+                <h1 className="text-gray-900 fw-bolder mb-2" style={{ fontSize: "1.75rem" }}>
+                  Create Your Account
+                </h1>
+                <p className="text-gray-600 fw-semibold fs-6">
+                  Join Packaging Glamour team today
+                </p>
+              </div>
+            </div>
 
-                {/* Email Input */}
-                <div className="fv-row mb-7">
-                  <label className="form-label fw-bold text-gray-900 fs-6">Email</label>
+            {/* Error Message */}
+            {error && (
+              <div className="alert alert-danger d-flex align-items-center mb-6" style={{ borderRadius: "12px", border: "none", background: "#fee" }}>
+                <i className="ki-duotone ki-shield-cross fs-2hx text-danger me-3">
+                  <span className="path1"></span>
+                  <span className="path2"></span>
+                </i>
+                <span className="fw-semibold">{error}</span>
+              </div>
+            )}
+
+            {/* Signup Form */}
+            <form onSubmit={handleSubmit}>
+              {/* Name Inputs */}
+              <div className="row mb-6">
+                <div className="col-md-6 mb-6 mb-md-0">
+                  <label className="form-label text-gray-900 fw-bold fs-7 mb-2">First Name</label>
                   <input
-                    className="form-control form-control-lg form-control-solid"
+                    className="form-control form-control-lg"
+                    style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
+                    type="text"
+                    name="firstName"
+                    placeholder="John"
+                    autoComplete="given-name"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label text-gray-900 fw-bold fs-7 mb-2">Last Name</label>
+                  <input
+                    className="form-control form-control-lg"
+                    style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
+                    type="text"
+                    name="lastName"
+                    placeholder="Doe"
+                    autoComplete="family-name"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Email Input */}
+              <div className="mb-6">
+                <label className="form-label text-gray-900 fw-bold fs-7 mb-2">Email Address</label>
+                <div className="position-relative">
+                  <span className="position-absolute top-50 translate-middle-y ms-4">
+                    <i className="ki-duotone ki-sms fs-2 text-gray-500">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                    </i>
+                  </span>
+                  <input
+                    className="form-control form-control-lg ps-14"
+                    style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
                     type="email"
                     name="email"
+                    placeholder="john.doe@packglamour.com"
                     autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
@@ -159,45 +162,21 @@ function SignUp() {
                     required
                   />
                 </div>
+              </div>
 
-                {/* Password Input */}
-                <div className="fv-row mb-7">
-                  <label className="form-label fw-bold text-gray-900 fs-6">Password</label>
-                  <input
-                    className="form-control form-control-lg form-control-solid"
-                    type="password"
-                    name="password"
-                    autoComplete="new-password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    disabled={loading}
-                    required
-                  />
-                  <div className="text-muted fs-7 mt-2">
-                    Use 6 or more characters with a mix of letters and numbers
-                  </div>
-                </div>
-
-                {/* Confirm Password Input */}
-                <div className="fv-row mb-7">
-                  <label className="form-label fw-bold text-gray-900 fs-6">Confirm Password</label>
-                  <input
-                    className="form-control form-control-lg form-control-solid"
-                    type="password"
-                    name="confirmPassword"
-                    autoComplete="new-password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    disabled={loading}
-                    required
-                  />
-                </div>
-
-                {/* Department Input */}
-                <div className="fv-row mb-7">
-                  <label className="form-label fw-bold text-gray-900 fs-6">Department</label>
+              {/* Department Input */}
+              <div className="mb-6">
+                <label className="form-label text-gray-900 fw-bold fs-7 mb-2">Department</label>
+                <div className="position-relative">
+                  <span className="position-absolute top-50 translate-middle-y ms-4" style={{ zIndex: 2 }}>
+                    <i className="ki-duotone ki-briefcase fs-2 text-gray-500">
+                      <span className="path1"></span>
+                      <span className="path2"></span>
+                    </i>
+                  </span>
                   <select
-                    className="form-select form-select-lg form-select-solid"
+                    className="form-select form-select-lg ps-14"
+                    style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
                     name="department"
                     value={formData.department}
                     onChange={handleChange}
@@ -215,55 +194,153 @@ function SignUp() {
                     <option value="Management">Management</option>
                   </select>
                 </div>
+              </div>
 
-                {/* Terms & Conditions */}
-                <div className="fv-row mb-10">
-                  <label className="form-check form-check-custom form-check-solid">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={acceptTerms}
-                      onChange={(e) => setAcceptTerms(e.target.checked)}
-                      disabled={loading}
-                    />
-                    <span className="form-check-label fw-semibold text-gray-700 fs-6">
-                      I agree to the{' '}
-                      <a href="https://www.packglamour.com/" target="_blank" rel="noopener noreferrer" className="link-primary">
-                        Terms & Conditions
-                      </a>
+              {/* Password Inputs */}
+              <div className="row mb-6">
+                <div className="col-md-6 mb-6 mb-md-0">
+                  <label className="form-label text-gray-900 fw-bold fs-7 mb-2">Password</label>
+                  <div className="position-relative">
+                    <span className="position-absolute top-50 translate-middle-y ms-4">
+                      <i className="ki-duotone ki-lock fs-2 text-gray-500">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
                     </span>
-                  </label>
+                    <input
+                      className="form-control form-control-lg ps-14 pe-14"
+                      style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Min 6 characters"
+                      autoComplete="new-password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      disabled={loading}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-icon position-absolute top-50 end-0 translate-middle-y me-2"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{ background: "transparent", border: "none" }}
+                    >
+                      <i className={`ki-duotone ${showPassword ? 'ki-eye-slash' : 'ki-eye'} fs-3 text-gray-500`}>
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                        <span className="path3"></span>
+                      </i>
+                    </button>
+                  </div>
                 </div>
+                <div className="col-md-6">
+                  <label className="form-label text-gray-900 fw-bold fs-7 mb-2">Confirm Password</label>
+                  <div className="position-relative">
+                    <span className="position-absolute top-50 translate-middle-y ms-4">
+                      <i className="ki-duotone ki-shield-tick fs-2 text-gray-500">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
+                    </span>
+                    <input
+                      className="form-control form-control-lg ps-14 pe-14"
+                      style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      placeholder="Repeat password"
+                      autoComplete="new-password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      disabled={loading}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-icon position-absolute top-50 end-0 translate-middle-y me-2"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      style={{ background: "transparent", border: "none" }}
+                    >
+                      <i className={`ki-duotone ${showConfirmPassword ? 'ki-eye-slash' : 'ki-eye'} fs-3 text-gray-500`}>
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                        <span className="path3"></span>
+                      </i>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-                {/* Submit Button */}
-                <div className="text-center">
-                  <button
-                    type="submit"
-                    className="btn btn-lg btn-primary w-100 mb-5"
+              {/* Terms & Conditions */}
+              <div className="mb-7">
+                <label className="form-check form-check-custom form-check-solid align-items-start">
+                  <input
+                    className="form-check-input me-3 mt-1"
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
                     disabled={loading}
-                  >
-                    {loading ? (
-                      <span className="indicator-progress d-block">
-                        Please wait...
-                        <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                      </span>
-                    ) : (
-                      <span className="indicator-label">Create Account</span>
-                    )}
-                  </button>
-                </div>
-              </form>
-            </div>
+                    style={{ borderRadius: "6px", width: "20px", height: "20px" }}
+                  />
+                  <span className="form-check-label text-gray-700 fs-7">
+                    I agree to the{' '}
+                    <a href="https://www.packglamour.com/" target="_blank" rel="noopener noreferrer" className="link-primary fw-bold" style={{ textDecoration: "none" }}>
+                      Terms & Conditions
+                    </a>
+                    {' '}and{' '}
+                    <a href="https://www.packglamour.com/" target="_blank" rel="noopener noreferrer" className="link-primary fw-bold" style={{ textDecoration: "none" }}>
+                      Privacy Policy
+                    </a>
+                  </span>
+                </label>
+              </div>
+
+              {/* Submit Button */}
+              <div className="mb-6">
+                <button
+                  type="submit"
+                  className="btn btn-lg w-100 text-white fw-bold"
+                  style={{
+                    background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)",
+                    borderRadius: "12px",
+                    height: "55px",
+                    border: "none",
+                    boxShadow: "0 4px 15px rgba(220, 53, 69, 0.3)"
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <span className="d-flex align-items-center justify-content-center">
+                      <span className="spinner-border spinner-border-sm me-2"></span>
+                      Creating account...
+                    </span>
+                  ) : (
+                    <span className="d-flex align-items-center justify-content-center">
+                      <i className="ki-duotone ki-check-circle fs-2 me-2">
+                        <span className="path1"></span>
+                        <span className="path2"></span>
+                      </i>
+                      Create Account
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* Sign In Link */}
+              <div className="text-center">
+                <span className="text-gray-600 fw-semibold fs-6">
+                  Already have an account?{' '}
+                  <Link to="/login" className="link-primary fw-bold" style={{ textDecoration: "none" }}>
+                    Sign In
+                  </Link>
+                </span>
+              </div>
+            </form>
           </div>
 
           {/* Footer */}
-          <div className="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
-            <div className="d-flex flex-center fw-semibold fs-6">
-              <a href="https://www.packglamour.com/" className="text-muted text-hover-primary px-2" target="_blank" rel="noopener noreferrer">
-                About
-              </a>
-              <span className="text-muted px-2">|</span>
-              <span className="text-muted px-2">Need help? Contact your administrator</span>
+          <div className="card-footer text-center py-4" style={{ borderTop: "1px solid #eff2f5", borderRadius: "0 0 20px 20px", background: "#f9f9f9" }}>
+            <div className="text-gray-600 fw-semibold fs-8">
+              By creating an account, you agree to our terms and conditions
             </div>
           </div>
         </div>
