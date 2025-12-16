@@ -68,7 +68,7 @@ function SignUp() {
 
   return (
     <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
-      <div className="d-flex flex-center w-100 h-100 p-5 py-10">
+      <div className="d-flex flex-center w-100 p-5 py-10" style={{ minHeight: "100vh" }}>
         <div className="card shadow-lg" style={{ maxWidth: "600px", width: "100%", borderRadius: "20px", border: "none" }}>
           <div className="card-body p-8 p-lg-10">
             {/* Logo and Brand */}

@@ -45,7 +45,7 @@ function VerifyEmail() {
 
   return (
     <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
-      <div className="d-flex flex-center w-100 h-100 p-5">
+      <div className="d-flex flex-center w-100 p-5" style={{ minHeight: "100vh" }}>
         <div className="card shadow-lg" style={{ maxWidth: "550px", width: "100%", borderRadius: "20px", border: "none" }}>
           <div className="card-body p-10 p-lg-12">
             {/* Logo and Brand */}
