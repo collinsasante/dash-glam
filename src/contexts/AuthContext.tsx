@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import type { User } from 'firebase/auth';
 import {
-  User,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
