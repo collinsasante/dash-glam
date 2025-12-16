@@ -67,22 +67,21 @@ function SignUp() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
       <div className="d-flex flex-center w-100 h-100 p-5 py-10">
         <div className="card shadow-lg" style={{ maxWidth: "600px", width: "100%", borderRadius: "20px", border: "none" }}>
           <div className="card-body p-8 p-lg-10">
             {/* Logo and Brand */}
             <div className="text-center mb-8">
               <div className="mb-5">
-                <div className="symbol symbol-80px mx-auto mb-4" style={{ background: "linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%)", borderRadius: "16px" }}>
-                  <span className="symbol-label">
-                    <i className="ki-duotone ki-user-tick fs-2x text-white">
-                      <span className="path1"></span>
-                      <span className="path2"></span>
-                      <span className="path3"></span>
-                    </i>
-                  </span>
-                </div>
+                <img
+                  src="/src/assets/logo_red.png"
+                  alt="Packaging Glamour"
+                  className="h-80px mx-auto mb-4"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
                 <h1 className="text-gray-900 fw-bolder mb-2" style={{ fontSize: "1.75rem" }}>
                   Create Your Account
                 </h1>

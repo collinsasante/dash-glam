@@ -44,21 +44,21 @@ function VerifyEmail() {
   };
 
   return (
-    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+    <div className="d-flex flex-column flex-root" style={{ minHeight: "100vh", background: "#f5f5f5" }}>
       <div className="d-flex flex-center w-100 h-100 p-5">
         <div className="card shadow-lg" style={{ maxWidth: "550px", width: "100%", borderRadius: "20px", border: "none" }}>
           <div className="card-body p-10 p-lg-12">
             {/* Logo and Brand */}
             <div className="text-center mb-10">
               <div className="mb-7">
-                <div className="symbol symbol-100px mx-auto mb-5" style={{ background: "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)", borderRadius: "20px" }}>
-                  <span className="symbol-label">
-                    <i className="ki-duotone ki-shield-tick fs-3x text-white">
-                      <span className="path1"></span>
-                      <span className="path2"></span>
-                    </i>
-                  </span>
-                </div>
+                <img
+                  src="/src/assets/logo_red.png"
+                  alt="Packaging Glamour"
+                  className="h-100px mx-auto mb-5"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
                 <h1 className="text-gray-900 fw-bolder mb-3" style={{ fontSize: "2rem" }}>
                   Verify Your Email
                 </h1>
