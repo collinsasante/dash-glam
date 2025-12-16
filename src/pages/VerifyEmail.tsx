@@ -53,7 +53,7 @@ function VerifyEmail() {
             <div className="text-center mb-10">
               <div className="mb-7">
                 <img
-                  src="/src/assets/logo_red.png"
+                  src="/logo_red.png"
                   alt="Packaging Glamour"
                   className="h-100px mx-auto mb-5"
                   onError={(e) => {

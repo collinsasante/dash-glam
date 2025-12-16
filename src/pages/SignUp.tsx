@@ -76,7 +76,7 @@ function SignUp() {
             <div className="text-center mb-8">
               <div className="mb-5">
                 <img
-                  src="/src/assets/logo_red.png"
+                  src="/logo_red.png"
                   alt="Packaging Glamour"
                   className="h-80px mx-auto mb-4"
                   onError={(e) => {

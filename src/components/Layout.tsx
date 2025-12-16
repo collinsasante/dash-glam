@@ -129,9 +129,12 @@ function Layout({ children }: LayoutProps) {
             >
               <Link to="/dashboard" className="d-flex align-items-center">
                 <img
-                  src="/src/assets/logo_red.png"
+                  src="/logo_red.png"
                   alt="Packaging Glamour"
                   style={{height: '40px', maxWidth: '180px', objectFit: 'contain'}}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
               </Link>
 
