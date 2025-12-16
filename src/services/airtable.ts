@@ -26,6 +26,12 @@ class AirtableService {
     method: string = 'GET',
     body?: any
   ): Promise<any> {
+    // Check if Airtable is configured
+    if (!AIRTABLE_API_KEY || !baseId) {
+      console.warn('Airtable is not configured. Please add environment variables.');
+      return { records: [] };
+    }
+
     const url = `${AIRTABLE_API_URL}/${baseId}/${encodeURIComponent(tableName)}`;
 
     const options: RequestInit = {
@@ -40,13 +46,18 @@ class AirtableService {
       options.body = JSON.stringify(body);
     }
 
-    const response = await fetch(url, options);
+    try {
+      const response = await fetch(url, options);
 
-    if (!response.ok) {
-      throw new Error(`Airtable API error: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Airtable API error: ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('Airtable request failed:', error);
+      return { records: [] };
     }
-
-    return response.json();
   }
 
   // Employee Management
