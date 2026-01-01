@@ -162,28 +162,6 @@ a.text-primary:hover {
   color: #dc3545 !important;
 }
 
-/* Card body hover - text turns white */
-.card:hover {
-  background-color: #dc3545 !important;
-  transition: all 0.3s ease;
-}
-
-.card:hover .card-body,
-.card:hover .card-body .text-gray-500,
-.card:hover .card-body .text-gray-900,
-.card:hover .card-body .text-gray-600,
-.card:hover .card-body .text-gray-700,
-.card:hover .card-body .text-muted,
-.card:hover .card-body .fw-bold,
-.card:hover .card-body .fs-3,
-.card:hover .card-body .fs-7 {
-  color: white !important;
-}
-
-.card:hover .card-body .svg-icon,
-.card:hover .card-body i {
-  color: white !important;
-}
 
 /* Light button styles */
 .btn-light {
