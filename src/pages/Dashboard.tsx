@@ -236,7 +236,7 @@ function Dashboard() {
                 </div>
 
                 {/* Quick Links */}
-                <div className="col-xl-4">
+                <div className="col-md-6 col-lg-4">
                   <div className="card h-100">
                     <div className="card-header border-0">
                       <h3 className="card-title fw-bold text-gray-900">Quick Access</h3>

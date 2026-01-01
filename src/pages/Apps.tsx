@@ -1,9 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { usePermissions } from '../hooks/usePermissions';
 
 function Apps() {
-  const navigate = useNavigate();
   const { accessibleApps, userDepartment } = usePermissions();
 
   return (
@@ -23,9 +21,11 @@ function Apps() {
                 {accessibleApps.length > 0 ? (
                   accessibleApps.map((app) => (
                     <div key={app.id} className="col-md-6 col-xl-4">
-                      <div
-                        onClick={() => navigate(app.route)}
-                        className="card card-custom shadow-sm hover-elevate-up h-100 border-0 cursor-pointer"
+                      <a
+                        href={app.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="card card-custom shadow-sm hover-elevate-up h-100 border-0 text-decoration-none"
                         style={{ cursor: 'pointer' }}
                       >
                         <div className="card-body text-center p-10">
@@ -44,7 +44,7 @@ function Apps() {
                             Open Application →
                           </div>
                         </div>
-                      </div>
+                      </a>
                     </div>
                   ))
                 ) : (

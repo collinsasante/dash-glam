@@ -184,3 +184,24 @@ a.text-primary:hover {
 .card:hover .card-body i {
   color: white !important;
 }
+
+/* Light button styles */
+.btn-light {
+  background-color: #f5f8fa !important;
+  border-color: #f5f8fa !important;
+  color: #5e6278 !important;
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+  background-color: #e4e6ef !important;
+  border-color: #e4e6ef !important;
+  color: #3f4254 !important;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.925rem !important;
+  border-radius: 0.475rem !important;
+}
