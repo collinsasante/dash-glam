@@ -78,7 +78,8 @@ function SignUp() {
                 <img
                   src="/logo_red.png"
                   alt="Packaging Glamour"
-                  className="h-80px mx-auto mb-4"
+                  className="mx-auto mb-4"
+                  style={{ height: "80px", maxWidth: "240px", objectFit: "contain" }}
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}

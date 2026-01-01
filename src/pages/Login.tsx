@@ -49,7 +49,8 @@ function Login() {
                 <img
                   src="/logo_red.png"
                   alt="Packaging Glamour"
-                  className="h-100px mx-auto mb-5"
+                  className="mx-auto mb-5"
+                  style={{ height: "100px", maxWidth: "280px", objectFit: "contain" }}
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}
