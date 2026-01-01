@@ -100,7 +100,7 @@ function App() {
             path="/apps/admin"
             element={
               <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Administration', 'Engineering', 'Management']}>
+                <DepartmentRoute allowedDepartments={['Administration', 'Management']}>
                   <SystemAdmin />
                 </DepartmentRoute>
               </ProtectedRoute>

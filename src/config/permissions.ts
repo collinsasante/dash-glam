@@ -11,9 +11,7 @@ export type Department =
   | 'Sales'
   | 'Marketing'
   | 'Production'
-  | 'Engineering'
-  | 'Creative Design'
-  | 'Pakkmax';
+  | 'Creative Design';
 
 export interface AppModule {
   id: string;
@@ -51,7 +49,7 @@ export const APP_MODULES: AppModule[] = [
     icon: 'ki-factory',
     url: 'https://glam-manufacturing.pages.dev/',
     color: 'success',
-    departments: ['Production', 'Engineering', 'Operations', 'Management']
+    departments: ['Production', 'Operations', 'Management']
   },
   {
     id: 'gkam-internal',
@@ -60,25 +58,25 @@ export const APP_MODULES: AppModule[] = [
     icon: 'ki-setting-3',
     url: 'https://gkam-internal.pages.dev/',
     color: 'dark',
-    departments: ['Administration', 'Management', 'Engineering', 'Creative Design', 'Pakkmax']
+    departments: ['Administration', 'Management', 'Creative Design']
   }
 ];
 
 export const MENU_ITEMS = {
   dashboard: {
-    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Engineering', 'Creative Design', 'Pakkmax']
+    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Creative Design']
   },
   apps: {
-    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Engineering', 'Creative Design', 'Pakkmax']
+    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Creative Design']
   },
   resources: {
-    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Engineering', 'Creative Design', 'Pakkmax']
+    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Creative Design']
   },
   reports: {
-    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Engineering', 'Creative Design', 'Pakkmax']
+    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Creative Design']
   },
   profile: {
-    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Engineering', 'Creative Design', 'Pakkmax']
+    departments: ['Logistics', 'Operations', 'Customer Service', 'Warehousing & Fulfilment', 'Administration', 'Management', 'Finance', 'Sales', 'Marketing', 'Production', 'Creative Design']
   }
 };
 
