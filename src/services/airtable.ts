@@ -58,7 +58,7 @@ class AirtableService {
   }
 
   // Employee Management
-  async getEmployees(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getEmployees(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Employees').then(res => res.records || []);
   }
 
@@ -90,7 +90,7 @@ class AirtableService {
   }
 
   // Attendance Management
-  async getAttendance(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getAttendance(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Attendance').then(res => res.records || []);
   }
 
@@ -99,7 +99,7 @@ class AirtableService {
   }
 
   // Leave Requests
-  async getLeaveRequests(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getLeaveRequests(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Leave Requests').then(res => res.records || []);
   }
 
@@ -117,7 +117,7 @@ class AirtableService {
   }
 
   // Production Orders
-  async getProductionOrders(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getProductionOrders(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Production Orders').then(res => res.records || []);
   }
 
@@ -139,7 +139,7 @@ class AirtableService {
   }
 
   // Inventory Items
-  async getInventoryItems(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getInventoryItems(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Inventory Items').then(res => res.records || []);
   }
 
@@ -157,12 +157,12 @@ class AirtableService {
   }
 
   // Deliveries
-  async getDeliveries(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getDeliveries(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Deliveries').then(res => res.records || []);
   }
 
   // Customers
-  async getCustomers(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getCustomers(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Customers').then(res => res.records || []);
   }
 
@@ -171,17 +171,17 @@ class AirtableService {
   }
 
   // Sales Leads
-  async getSalesLeads(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getSalesLeads(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Sales Leads').then(res => res.records || []);
   }
 
   // Invoices
-  async getInvoices(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getInvoices(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Invoices').then(res => res.records || []);
   }
 
   // Expenses
-  async getExpenses(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getExpenses(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Expenses').then(res => res.records || []);
   }
 
@@ -190,7 +190,7 @@ class AirtableService {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Audit Logs', 'POST', { fields });
   }
 
-  async getAuditLogs(filterByFormula?: string): Promise<AirtableRecord[]> {
+  async getAuditLogs(_filterByFormula?: string): Promise<AirtableRecord[]> {
     return this.makeRequest(AIRTABLE_BASE_ID, 'Audit Logs').then(res => res.records || []);
   }
 }

@@ -15,16 +15,9 @@ import Resources from './pages/Resources'
 import Reports from './pages/Reports'
 import Profile from './pages/Profile'
 
-// App modules
-import ProductionDashboard from './pages/apps/ProductionDashboard'
-import InventoryManagement from './pages/apps/InventoryManagement'
-import DeliveryTracker from './pages/apps/DeliveryTracker'
-import LabelCalculator from './pages/apps/LabelCalculator'
-import CRM from './pages/apps/CRM'
-import Accounting from './pages/apps/Accounting'
+// Keep only internal app modules that are still used
 import EmployeeManagement from './pages/apps/EmployeeManagement'
 import SystemAdmin from './pages/apps/SystemAdmin'
-import Analytics from './pages/apps/Analytics'
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -94,70 +87,10 @@ function App() {
 
           {/* Department-specific app routes */}
           <Route
-            path="/apps/production"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Production', 'Management']}>
-                  <ProductionDashboard />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apps/inventory"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Warehouse', 'Management']}>
-                  <InventoryManagement />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apps/delivery"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Logistics', 'Management']}>
-                  <DeliveryTracker />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apps/label-calculator"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Sales', 'Production', 'Management']}>
-                  <LabelCalculator />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apps/crm"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Sales', 'Management']}>
-                  <CRM />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apps/accounting"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Finance', 'Management']}>
-                  <Accounting />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/apps/employees"
             element={
               <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['HR', 'Management']}>
+                <DepartmentRoute allowedDepartments={['Administration', 'Management']}>
                   <EmployeeManagement />
                 </DepartmentRoute>
               </ProtectedRoute>
@@ -167,18 +100,8 @@ function App() {
             path="/apps/admin"
             element={
               <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['IT', 'Management']}>
+                <DepartmentRoute allowedDepartments={['Administration', 'Engineering', 'Management']}>
                   <SystemAdmin />
-                </DepartmentRoute>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/apps/analytics"
-            element={
-              <ProtectedRoute>
-                <DepartmentRoute allowedDepartments={['Management', 'Finance', 'Sales']}>
-                  <Analytics />
                 </DepartmentRoute>
               </ProtectedRoute>
             }
