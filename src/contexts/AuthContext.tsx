@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebase';
+import { airtableService } from '../services/airtable';
 
 interface UserData {
   department: string;
@@ -24,7 +25,7 @@ interface AuthContextType {
   userData: UserData | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string, displayName: string, department: string) => Promise<void>;
+  signup: (email: string, password: string, displayName: string) => Promise<void>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   resendVerificationEmail: () => Promise<void>;
@@ -49,7 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  async function signup(email: string, password: string, displayName: string, department: string) {
+  async function signup(email: string, password: string, displayName: string) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
     // Update user profile with display name
@@ -61,11 +62,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Send email verification
       await sendEmailVerification(userCredential.user);
 
-      // Store user data in Firestore
+      // Store basic user data in Firestore (without department)
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         displayName,
         email,
-        department,
         emailVerified: false,
         createdAt: new Date().toISOString()
       });
@@ -101,7 +101,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
         // Fetch user data from Firestore
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
-          setUserData(userDoc.data() as UserData);
+          const firestoreData = userDoc.data();
+
+          // Fetch employee department from Airtable
+          try {
+            const employees = await airtableService.getEmployees();
+            const employee = employees.find(emp => emp.fields['Email'] === user.email);
+
+            setUserData({
+              displayName: firestoreData.displayName || user.displayName || '',
+              email: firestoreData.email || user.email || '',
+              department: employee?.fields['Department'] as string || ''
+            });
+          } catch (error) {
+            console.error('Error fetching employee data from Airtable:', error);
+            // Fallback to Firestore data without department
+            setUserData({
+              displayName: firestoreData.displayName || user.displayName || '',
+              email: firestoreData.email || user.email || '',
+              department: ''
+            });
+          }
         }
       } else {
         setUserData(null);

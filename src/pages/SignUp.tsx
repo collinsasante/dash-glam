@@ -8,8 +8,7 @@ function SignUp() {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    department: ''
+    confirmPassword: ''
   });
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [error, setError] = useState('');
@@ -42,7 +41,7 @@ function SignUp() {
 
     try {
       const displayName = `${formData.firstName} ${formData.lastName}`;
-      await signup(formData.email, formData.password, displayName, formData.department);
+      await signup(formData.email, formData.password, displayName);
       navigate('/verify-email');
     } catch (err: any) {
       if (err.code === 'auth/email-already-in-use') {
@@ -162,38 +161,6 @@ function SignUp() {
                     disabled={loading}
                     required
                   />
-                </div>
-              </div>
-
-              {/* Department Input */}
-              <div className="mb-6">
-                <label className="form-label text-gray-900 fw-bold fs-7 mb-2">Department</label>
-                <div className="position-relative">
-                  <span className="position-absolute top-50 translate-middle-y ms-4" style={{ zIndex: 2 }}>
-                    <i className="ki-duotone ki-briefcase fs-2 text-gray-500">
-                      <span className="path1"></span>
-                      <span className="path2"></span>
-                    </i>
-                  </span>
-                  <select
-                    className="form-select form-select-lg ps-14"
-                    style={{ borderRadius: "10px", border: "2px solid #e4e6ef", height: "50px" }}
-                    name="department"
-                    value={formData.department}
-                    onChange={handleChange}
-                    disabled={loading}
-                    required
-                  >
-                    <option value="">Select Department</option>
-                    <option value="Production">Production</option>
-                    <option value="Warehouse">Warehouse</option>
-                    <option value="Logistics">Logistics</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Finance">Finance</option>
-                    <option value="HR">HR</option>
-                    <option value="IT">IT</option>
-                    <option value="Management">Management</option>
-                  </select>
                 </div>
               </div>
 
